@@ -4,7 +4,7 @@ import {
   GetById,
   SaveArticle,
   UpdateArticle,
-} from "controllers";
+} from "@app/controllers";
 import express from "express";
 
 const router = express.Router();

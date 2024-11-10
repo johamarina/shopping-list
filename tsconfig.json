@@ -12,11 +12,16 @@
     "baseUrl": "src",
     "skipLibCheck": true,
     "isolatedModules": false,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "strictNullChecks": false,
     "strictPropertyInitialization": false,
     "paths": {
-      "@app/*": ["./src/*"]
-    }
-  },
-  "lib": ["es2018"]
+      "@app/*": ["./*"]
+    },
+    "lib": ["es2018"]
+  }
 }

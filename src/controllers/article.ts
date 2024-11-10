@@ -1,6 +1,6 @@
-import prisma from "config/database";
+import prisma from "@app/config/database";
 import { Request, Response } from "express";
-import { ArticleSchema } from "schemas/article";
+import { ArticleSchema } from "@app/schemas/article";
 
 async function GetAll(req: Request, res: Response): Promise<void> {
   try {
