@@ -1,0 +1,22 @@
+{
+  "include": ["src"],
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "strict": true,
+    "target": "es2018",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": "src",
+    "skipLibCheck": true,
+    "isolatedModules": false,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@app/*": ["./src/*"]
+    }
+  },
+  "lib": ["es2018"]
+}
