@@ -1,6 +1,7 @@
 import prisma from "@app/config/database";
 import { Request, Response } from "express";
 import { ArticleSchema } from "@app/schemas/article";
+import { getIo } from "..";
 
 async function GetAll(req: Request, res: Response): Promise<void> {
   try {
@@ -20,16 +21,19 @@ async function SaveArticle(req: Request, res: Response): Promise<void> {
       return;
     }
 
-    const { name, description, price } = req.body;
+    const { name, description, price, purchased } = req.body;
 
-    await prisma.article.create({
+    const article = await prisma.article.create({
       data: {
         name,
         description,
         price,
-        purchased: false,
+        purchased,
       },
     });
+
+    const io = getIo();
+    io.emit("itemAdded", article);
 
     res.status(201).send({ message: "Guardado exitosamente" });
   } catch (error) {
@@ -68,7 +72,7 @@ async function UpdateArticle(req: Request, res: Response): Promise<void> {
       return;
     }
 
-    await prisma.article.update({
+    const article = await prisma.article.update({
       where: {
         id: Number(id),
       },
@@ -80,7 +84,10 @@ async function UpdateArticle(req: Request, res: Response): Promise<void> {
       },
     });
 
-    res.status(200).send({ message: "Actualizado con éxito" });
+    const io = getIo();
+    io.emit("itemUpdated", article);
+
+    res.status(200).send({ message: "Actualizado con éxito", data: article });
   } catch (error) {
     res.status(500).send({ error });
   }
@@ -101,11 +108,14 @@ async function DeleteArticle(req: Request, res: Response): Promise<void> {
       return;
     }
 
-    await prisma.article.delete({
+    const article = await prisma.article.delete({
       where: {
         id: Number(id),
       },
     });
+
+    const io = getIo();
+    io.emit("itemDeleted", article);
 
     res.status(200).send({ message: "Eliminado con éxito" });
   } catch (error) {
